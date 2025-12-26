@@ -237,7 +237,7 @@
             transform: translateY(-3px);
         }
 
-        /* Tools Section */
+        /* Section */
         .section {
             padding: 5rem 5%;
             opacity: 0;
@@ -608,6 +608,156 @@
             background: var(--primary-dark);
         }
 
+        /* Tool Interface Styles */
+        .tool-interface {
+            padding: 1rem 0;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .input-group textarea,
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: var(--light);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group textarea:focus,
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .tool-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .option-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .option-group input[type="range"] {
+            width: 100%;
+        }
+
+        .range-value {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .tool-output {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .output-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            min-height: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .output-content pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .loading-output {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            color: #94a3b8;
+        }
+
+        .loading-output i {
+            margin-right: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tool-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -634,6 +784,14 @@
             .chat-window {
                 width: calc(100vw - 4rem);
                 right: -1rem;
+            }
+
+            .tool-options {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-actions {
+                flex-direction: column;
             }
         }
 
@@ -744,7 +902,7 @@
             </p>
             <div class="stats" style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem;">
                 <div class="stat">
-                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;">30+</h3>
+                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;">10+</h3>
                     <p>Herramientas IA</p>
                 </div>
                 <div class="stat">
@@ -807,6 +965,20 @@
     </footer>
 
     <script>
+        // Configuration
+        const CONFIG = {
+            // Cambia esta URL por la de tu worker cuando lo tengas
+            workerURL: 'https://ia-toolbox-proxy.TU-NOMBRE.workers.dev',
+            useDemoMode: true, // Cambiar a false cuando tengas API key
+            demoResponses: [
+                "¡Interesante pregunta! Te recomendaría usar nuestra herramienta de generación de texto para esto.",
+                "Para eso, puedes utilizar el corrector gramatical que encontrarás en la sección de herramientas de texto.",
+                "La IA puede ayudarte con eso. Prueba nuestro resumidor automático para textos largos.",
+                "Excelente idea. Nuestro generador de código puede asistirte con esa tarea.",
+                "Para imágenes, te sugiero probar nuestro generador de imágenes con IA. Solo describe lo que necesitas."
+            ]
+        };
+
         // Tool Data
         const tools = [
             {
@@ -816,88 +988,108 @@
                 category: "text",
                 icon: "fas fa-font",
                 color: "#6366f1",
-                tags: ["Texto", "Escritura", "Creativo"]
+                tags: ["Texto", "Escritura", "Creativo"],
+                apiEndpoint: "/api/generate-text",
+                interface: "text-generator"
             },
             {
                 id: 2,
-                name: "Generador de Imágenes",
-                description: "Crea imágenes únicas y sorprendentes con solo una descripción.",
-                category: "image",
-                icon: "fas fa-image",
+                name: "Resumidor de Texto",
+                description: "Resume textos largos manteniendo los puntos clave y el contexto importante.",
+                category: "text",
+                icon: "fas fa-file-contract",
                 color: "#10b981",
-                tags: ["Imágenes", "DALL-E", "Arte"]
+                tags: ["Resumen", "Análisis", "Productividad"],
+                apiEndpoint: "/api/summarize",
+                interface: "text-summarizer"
             },
             {
                 id: 3,
-                name: "Corrector de Texto",
-                description: "Corrección gramatical y de estilo con sugerencias inteligentes.",
+                name: "Corrector Gramatical",
+                description: "Corrección gramatical, ortográfica y de estilo con sugerencias inteligentes.",
                 category: "text",
                 icon: "fas fa-spell-check",
                 color: "#f59e0b",
-                tags: ["Gramática", "Corrección", "Estilo"]
+                tags: ["Gramática", "Corrección", "Estilo"],
+                apiEndpoint: "/api/correct-text",
+                interface: "grammar-checker"
             },
             {
                 id: 4,
-                name: "Resumidor IA",
-                description: "Resume textos largos manteniendo los puntos clave y contexto.",
-                category: "productivity",
-                icon: "fas fa-file-contract",
-                color: "#8b5cf6",
-                tags: ["Resumen", "Análisis", "Productividad"]
-            },
-            {
-                id: 5,
                 name: "Generador de Código",
-                description: "Genera código en múltiples lenguajes a partir de descripciones.",
+                description: "Genera código en múltiples lenguajes a partir de descripciones en lenguaje natural.",
                 category: "code",
                 icon: "fas fa-code",
                 color: "#ef4444",
-                tags: ["Programación", "Desarrollo", "Código"]
+                tags: ["Programación", "Desarrollo", "Código"],
+                apiEndpoint: "/api/generate-code",
+                interface: "code-generator"
             },
             {
-                id: 6,
+                id: 5,
                 name: "Explicador Simple",
-                description: "Explica conceptos complejos de manera sencilla y comprensible.",
+                description: "Explica conceptos complejos de manera sencilla y fácil de entender.",
                 category: "text",
                 icon: "fas fa-lightbulb",
                 color: "#3b82f6",
-                tags: ["Educación", "Explicación", "Aprendizaje"]
+                tags: ["Educación", "Explicación", "Aprendizaje"],
+                apiEndpoint: "/api/explain",
+                interface: "explainer"
+            },
+            {
+                id: 6,
+                name: "Traductor IA",
+                description: "Traduce textos manteniendo el contexto y tono original entre múltiples idiomas.",
+                category: "text",
+                icon: "fas fa-language",
+                color: "#8b5cf6",
+                tags: ["Traducción", "Idiomas", "Texto"],
+                apiEndpoint: "/api/translate",
+                interface: "translator"
             },
             {
                 id: 7,
-                name: "Editor Markdown IA",
-                description: "Editor inteligente con sugerencias y formato automático.",
+                name: "Generador de Ideas",
+                description: "Genera ideas creativas para proyectos, contenido, nombres y más.",
                 category: "productivity",
-                icon: "fas fa-edit",
+                icon: "fas fa-brain",
                 color: "#ec4899",
-                tags: ["Markdown", "Editor", "Texto"]
+                tags: ["Creatividad", "Ideas", "Brainstorming"],
+                apiEndpoint: "/api/generate-ideas",
+                interface: "idea-generator"
             },
             {
                 id: 8,
-                name: "Analizador de Texto",
-                description: "Analiza sentimientos, tono y características de textos.",
+                name: "Analizador de Sentimientos",
+                description: "Analiza el sentimiento, tono y emociones en textos y comentarios.",
                 category: "text",
                 icon: "fas fa-chart-bar",
                 color: "#06b6d4",
-                tags: ["Análisis", "Sentimiento", "Métricas"]
+                tags: ["Análisis", "Sentimiento", "Métricas"],
+                apiEndpoint: "/api/analyze-sentiment",
+                interface: "sentiment-analyzer"
             },
             {
                 id: 9,
-                name: "Convertidor a PDF",
-                description: "Convierte documentos a PDF con diseño inteligente.",
-                category: "productivity",
-                icon: "fas fa-file-pdf",
+                name: "Convertidor de Tono",
+                description: "Cambia el tono de un texto (formal, casual, profesional, amigable).",
+                category: "text",
+                icon: "fas fa-exchange-alt",
                 color: "#f97316",
-                tags: ["PDF", "Conversión", "Documentos"]
+                tags: ["Tono", "Estilo", "Reescritura"],
+                apiEndpoint: "/api/change-tone",
+                interface: "tone-converter"
             },
             {
                 id: 10,
-                name: "Asistente de Programación",
-                description: "Ayuda con debugging, optimización y mejores prácticas.",
-                category: "code",
-                icon: "fas fa-laptop-code",
+                name: "Generador de Títulos",
+                description: "Crea títulos atractivos y SEO-friendly para artículos y contenido.",
+                category: "text",
+                icon: "fas fa-heading",
                 color: "#22c55e",
-                tags: ["Debug", "Optimización", "Programación"]
+                tags: ["Títulos", "SEO", "Marketing"],
+                apiEndpoint: "/api/generate-titles",
+                interface: "title-generator"
             }
         ];
 
@@ -1005,6 +1197,9 @@
             // Chat toggle
             chatToggle.addEventListener('click', () => {
                 chatWindow.classList.toggle('active');
+                if (chatWindow.classList.contains('active')) {
+                    chatInput.focus();
+                }
             });
 
             closeChat.addEventListener('click', () => {
@@ -1023,6 +1218,9 @@
                     toolModal.classList.remove('active');
                 }
             });
+
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
         }
 
         // Open Tool Modal
@@ -1031,83 +1229,335 @@
             if (!tool) return;
 
             modalTitle.textContent = tool.name;
-            modalBody.innerHTML = `
-                <div style="margin-bottom: 2rem;">
-                    <div class="tool-icon" style="margin: 0 auto 1rem; background: linear-gradient(135deg, ${tool.color}, ${tool.color}80)">
-                        <i class="${tool.icon}"></i>
-                    </div>
-                    <h3 style="text-align: center; margin-bottom: 1rem;">${tool.name}</h3>
-                    <p style="text-align: center; color: #94a3b8;">${tool.description}</p>
-                </div>
-                
-                <div style="margin-bottom: 2rem;">
-                    <h4 style="margin-bottom: 1rem; color: var(--primary);">
-                        <i class="fas fa-info-circle"></i> Información
-                    </h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
-                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;">
-                            <div style="color: #94a3b8; font-size: 0.9rem;">Categoría</div>
-                            <div style="font-weight: 500;">${getCategoryName(tool.category)}</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;">
-                            <div style="color: #94a3b8; font-size: 0.9rem;">Estado</div>
-                            <div style="font-weight: 500; color: #10b981;">Disponible</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 style="margin-bottom: 1rem; color: var(--primary);">
-                        <i class="fas fa-cogs"></i> Funcionalidades
-                    </h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
-                            Procesamiento inteligente
-                        </li>
-                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
-                            Resultados en tiempo real
-                        </li>
-                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
-                            Interfaz intuitiva
-                        </li>
-                        <li style="padding: 0.5rem 0;">
-                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
-                            Compatibilidad total
-                        </li>
-                    </ul>
-                </div>
-                
-                <div style="margin-top: 2rem; text-align: center;">
-                    <button class="btn btn-primary" style="width: 100%;" onclick="launchTool(${toolId})">
-                        <i class="fas fa-play"></i> Usar Herramienta
-                    </button>
-                </div>
-            `;
+            
+            // Load specific interface for each tool
+            let interfaceHTML = '';
+            switch(tool.interface) {
+                case 'text-generator':
+                    interfaceHTML = getTextGeneratorInterface(tool);
+                    break;
+                case 'text-summarizer':
+                    interfaceHTML = getTextSummarizerInterface(tool);
+                    break;
+                case 'grammar-checker':
+                    interfaceHTML = getGrammarCheckerInterface(tool);
+                    break;
+                case 'code-generator':
+                    interfaceHTML = getCodeGeneratorInterface(tool);
+                    break;
+                default:
+                    interfaceHTML = getDefaultInterface(tool);
+            }
+
+            modalBody.innerHTML = interfaceHTML;
+            
+            // Add event listeners to the new interface
+            setTimeout(() => {
+                const generateBtn = document.getElementById('generateBtn');
+                const copyBtn = document.getElementById('copyBtn');
+                const downloadBtn = document.getElementById('downloadBtn');
+                const temperatureSlider = document.getElementById('temperature');
+                const temperatureValue = document.getElementById('temperatureValue');
+                const maxTokensSlider = document.getElementById('maxTokens');
+                const maxTokensValue = document.getElementById('maxTokensValue');
+
+                if (generateBtn) {
+                    generateBtn.addEventListener('click', () => generateContent(tool));
+                }
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', copyOutput);
+                }
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', downloadOutput);
+                }
+                if (temperatureSlider && temperatureValue) {
+                    temperatureSlider.addEventListener('input', (e) => {
+                        temperatureValue.textContent = e.target.value;
+                    });
+                }
+                if (maxTokensSlider && maxTokensValue) {
+                    maxTokensSlider.addEventListener('input', (e) => {
+                        maxTokensValue.textContent = e.target.value;
+                    });
+                }
+            }, 100);
 
             toolModal.classList.add('active');
         }
 
-        function getCategoryName(category) {
-            const categories = {
-                text: 'Texto',
-                image: 'Imágenes',
-                code: 'Código',
-                productivity: 'Productividad'
-            };
-            return categories[category] || category;
+        // Interface Templates
+        function getTextGeneratorInterface(tool) {
+            return `
+                <div class="tool-interface">
+                    <div class="input-group">
+                        <label for="textPrompt"><i class="fas fa-keyboard"></i> Describe lo que quieres generar:</label>
+                        <textarea id="textPrompt" placeholder="Ej: Un correo formal para solicitar información sobre..."></textarea>
+                    </div>
+                    
+                    <div class="tool-options">
+                        <div class="option-group">
+                            <label for="temperature">Creatividad: <span id="temperatureValue">0.7</span></label>
+                            <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+                        </div>
+                        <div class="option-group">
+                            <label for="maxTokens">Longitud: <span id="maxTokensValue">500</span> tokens</label>
+                            <input type="range" id="maxTokens" min="100" max="2000" step="100" value="500">
+                        </div>
+                        <div class="option-group">
+                            <label for="toneSelect">Tono:</label>
+                            <select id="toneSelect">
+                                <option value="formal">Formal</option>
+                                <option value="casual">Casual</option>
+                                <option value="profesional">Profesional</option>
+                                <option value="creativo">Creativo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-actions">
+                        <button class="btn btn-primary" id="generateBtn">
+                            <i class="fas fa-magic"></i> Generar Texto
+                        </button>
+                    </div>
+                    
+                    <div class="tool-output">
+                        <div class="output-header">
+                            <h4><i class="fas fa-file-alt"></i> Resultado:</h4>
+                            <div>
+                                <button class="btn btn-copy" id="copyBtn">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                                <button class="btn btn-download" id="downloadBtn">
+                                    <i class="fas fa-download"></i> Descargar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent">
+                            <div class="loading-output" style="display: none;" id="loadingOutput">
+                                <i class="fas fa-spinner fa-spin"></i> Generando contenido...
+                            </div>
+                            <pre id="outputText">El resultado aparecerá aquí...</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        // Launch Tool (placeholder)
-        function launchTool(toolId) {
-            alert(`Iniciando herramienta ${toolId}. Esta funcionalidad se integrará con las APIs específicas.`);
-            // Aquí iría la integración con la API correspondiente
+        function getTextSummarizerInterface(tool) {
+            return `
+                <div class="tool-interface">
+                    <div class="input-group">
+                        <label for="textToSummarize"><i class="fas fa-file-alt"></i> Texto a resumir:</label>
+                        <textarea id="textToSummarize" placeholder="Pega aquí el texto que quieres resumir..."></textarea>
+                    </div>
+                    
+                    <div class="tool-options">
+                        <div class="option-group">
+                            <label for="summaryLength">Longitud del resumen:</label>
+                            <select id="summaryLength">
+                                <option value="short">Muy corto (1-2 frases)</option>
+                                <option value="medium" selected>Medio (párrafos clave)</option>
+                                <option value="detailed">Detallado (puntos principales)</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label for="summaryFormat">Formato:</label>
+                            <select id="summaryFormat">
+                                <option value="paragraph">Párrafo</option>
+                                <option value="bullets" selected>Puntos</option>
+                                <option value="keypoints">Puntos clave</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-actions">
+                        <button class="btn btn-primary" id="generateBtn">
+                            <i class="fas fa-compress-alt"></i> Resumir Texto
+                        </button>
+                    </div>
+                    
+                    <div class="tool-output">
+                        <div class="output-header">
+                            <h4><i class="fas fa-file-contract"></i> Resumen:</h4>
+                            <div>
+                                <button class="btn btn-copy" id="copyBtn">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent">
+                            <div class="loading-output" style="display: none;" id="loadingOutput">
+                                <i class="fas fa-spinner fa-spin"></i> Resumiendo texto...
+                            </div>
+                            <pre id="outputText">El resumen aparecerá aquí...</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getDefaultInterface(tool) {
+            return `
+                <div class="tool-interface">
+                    <div class="input-group">
+                        <label for="toolInput"><i class="${tool.icon}"></i> Entrada:</label>
+                        <textarea id="toolInput" placeholder="Ingresa el texto a procesar..."></textarea>
+                    </div>
+                    
+                    <div class="tool-actions">
+                        <button class="btn btn-primary" id="generateBtn">
+                            <i class="fas fa-play"></i> Ejecutar Herramienta
+                        </button>
+                    </div>
+                    
+                    <div class="tool-output">
+                        <div class="output-header">
+                            <h4><i class="fas fa-file-alt"></i> Resultado:</h4>
+                            <div>
+                                <button class="btn btn-copy" id="copyBtn">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent">
+                            <div class="loading-output" style="display: none;" id="loadingOutput">
+                                <i class="fas fa-spinner fa-spin"></i> Procesando...
+                            </div>
+                            <pre id="outputText">El resultado aparecerá aquí...</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generate Content
+        async function generateContent(tool) {
+            const input = document.getElementById('textPrompt') || 
+                         document.getElementById('textToSummarize') || 
+                         document.getElementById('toolInput');
+            const outputText = document.getElementById('outputText');
+            const loadingOutput = document.getElementById('loadingOutput');
+
+            if (!input || !input.value.trim()) {
+                alert('Por favor, ingresa algún texto primero.');
+                return;
+            }
+
+            // Show loading
+            if (loadingOutput) loadingOutput.style.display = 'flex';
+            if (outputText) outputText.style.display = 'none';
+
+            try {
+                if (CONFIG.useDemoMode) {
+                    // Demo mode - simulate API response
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    const demoResponses = {
+                        'text-generator': `Basado en tu solicitud, he generado el siguiente texto:
+
+Estimado/a [Nombre del destinatario],
+
+Me dirijo a usted con el propósito de solicitar información detallada acerca de [tema específico]. Como parte de [contexto o proyecto], considero fundamental contar con datos precisos y actualizados que me permitan [objetivo o propósito].
+
+Agradecería enormemente si pudiera proporcionarme información relativa a:
+1. [Punto específico 1]
+2. [Punto específico 2]
+3. [Punto específico 3]
+
+Quedo a la espera de su amable respuesta y me pongo a su disposición para cualquier aclaración adicional que pueda requerir.
+
+Atentamente,
+[Tu nombre]`,
+                        
+                        'text-summarizer': `**Resumen del texto:**
+
+**Puntos clave:**
+• El texto aborda la importancia de la inteligencia artificial en el ámbito empresarial
+• Se destacan las ventajas en términos de eficiencia y productividad
+• Se mencionan casos de uso específicos en diferentes industrias
+• Se analizan los desafíos éticos y de implementación
+• Se proyecta el futuro desarrollo de estas tecnologías
+
+**Conclusiones principales:**
+La IA está transformando los modelos de negocio, pero requiere una implementación cuidadosa que considere aspectos técnicos y éticos.`,
+                        
+                        'grammar-checker': `**Texto corregido:**
+
+El desarrollo de aplicaciones web modernas requiere un enfoque integral que considere tanto el frontend como el backend. Es fundamental implementar buenas prácticas de programación, mantener un código limpio y documentado, así como realizar pruebas exhaustivas antes del despliegue en producción.
+
+Además, es importante considerar aspectos de seguridad, rendimiento y escalabilidad desde las primeras etapas del desarrollo. La elección de tecnologías adecuadas y la arquitectura del sistema son decisiones cruciales que impactarán en el éxito del proyecto a largo plazo.`
+                    };
+
+                    const response = demoResponses[tool.interface] || 
+                        `Resultado de la herramienta "${tool.name}" para: "${input.value.substring(0, 100)}..."\n\nEsta es una demostración. Con una API key real, obtendrías resultados generados por IA.`;
+                    
+                    outputText.textContent = response;
+                } else {
+                    // Real API call
+                    const response = await fetch(`${CONFIG.workerURL}${tool.apiEndpoint}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            text: input.value,
+                            // Add other parameters based on tool
+                        })
+                    });
+
+                    const data = await response.json();
+                    outputText.textContent = data.result || 
+                        data.choices?.[0]?.message?.content || 
+                        'Respuesta recibida de la IA';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                outputText.textContent = `Error: ${error.message}\n\nSugerencia: Activa el modo demo o configura tu API key.`;
+            } finally {
+                // Hide loading
+                if (loadingOutput) loadingOutput.style.display = 'none';
+                if (outputText) outputText.style.display = 'block';
+            }
+        }
+
+        // Copy Output
+        function copyOutput() {
+            const outputText = document.getElementById('outputText');
+            if (outputText) {
+                navigator.clipboard.writeText(outputText.textContent)
+                    .then(() => {
+                        const copyBtn = document.getElementById('copyBtn');
+                        const originalHTML = copyBtn.innerHTML;
+                        copyBtn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = originalHTML;
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Error al copiar:', err);
+                        alert('Error al copiar el texto');
+                    });
+            }
+        }
+
+        // Download Output
+        function downloadOutput() {
+            const outputText = document.getElementById('outputText');
+            if (outputText) {
+                const blob = new Blob([outputText.textContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `ia-toolbox-resultado-${Date.now()}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
         }
 
         // Chat Functions
-        function sendChatMessage() {
+        async function sendChatMessage() {
             const message = chatInput.value.trim();
             if (!message) return;
 
@@ -1115,18 +1565,57 @@
             addMessage(message, 'user');
             chatInput.value = '';
 
-            // Simulate AI response (reemplazar con API real)
-            setTimeout(() => {
-                const responses = [
-                    "Interesante pregunta. ¿Podrías darme más detalles?",
-                    "Basándome en mi conocimiento, te recomendaría revisar las herramientas de texto IA disponibles.",
-                    "Para eso, puedes usar nuestro generador de imágenes IA. Solo describe lo que necesitas.",
-                    "Excelente pregunta. La IA puede ayudarte con eso utilizando nuestro resumidor automático.",
-                    "Para programación, nuestro generador de código puede asistirte. ¿Qué lenguaje prefieres?"
-                ];
-                const response = responses[Math.floor(Math.random() * responses.length)];
-                addMessage(response, 'bot');
-            }, 1000);
+            // Show typing indicator
+            const typingMsg = document.createElement('div');
+            typingMsg.className = 'message bot';
+            typingMsg.innerHTML = '<i class="fas fa-ellipsis-h"></i> Escribiendo...';
+            typingMsg.id = 'typingIndicator';
+            chatMessages.appendChild(typingMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                let responseText;
+                
+                if (CONFIG.useDemoMode) {
+                    // Demo response
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    responseText = CONFIG.demoResponses[Math.floor(Math.random() * CONFIG.demoResponses.length)];
+                } else {
+                    // Real API call
+                    const response = await fetch(`${CONFIG.workerURL}/api/chat`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            messages: [
+                                { 
+                                    role: 'system', 
+                                    content: 'Eres un asistente de IA útil para IAtoolbox. Responde en español de manera amable y profesional. Ayuda con herramientas de IA, generación de contenido y productividad.' 
+                                },
+                                { role: 'user', content: message }
+                            ],
+                            model: 'gpt-3.5-turbo',
+                            temperature: 0.7
+                        })
+                    });
+
+                    const data = await response.json();
+                    responseText = data.choices?.[0]?.message?.content || 
+                        'Lo siento, no pude generar una respuesta.';
+                }
+
+                // Remove typing indicator
+                document.getElementById('typingIndicator')?.remove();
+                
+                // Add bot message
+                addMessage(responseText, 'bot');
+
+            } catch (error) {
+                console.error('Chat error:', error);
+                document.getElementById('typingIndicator')?.remove();
+                addMessage('⚠️ Error de conexión. Prueba activando el modo demo.', 'bot');
+            }
         }
 
         function addMessage(text, sender) {
@@ -1135,6 +1624,38 @@
             messageDiv.textContent = text;
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const icon = document.querySelector('#themeToggle i');
+            const isDark = document.body.style.filter === 'invert(1) hue-rotate(180deg)';
+            
+            if (isDark) {
+                // Switch to dark mode
+                document.body.style.filter = 'none';
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Switch to light mode
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = document.querySelector('#themeToggle i');
+            
+            if (savedTheme === 'light') {
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
         }
 
         // Scroll Animations
@@ -1150,19 +1671,8 @@
             sections.forEach(section => observer.observe(section));
         }
 
-        // Theme Toggle (placeholder)
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            const icon = document.querySelector('#themeToggle i');
-            if (icon.classList.contains('fa-moon')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-                document.body.style.filter = 'none';
-            }
-        });
+        // Initialize theme
+        loadTheme();
     </script>
 </body>
 </html>
