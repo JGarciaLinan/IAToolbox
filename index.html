@@ -1,11 +1,199 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>IAtoolbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAtoolbox – Herramientas de Inteligencia Artificial Gratuitas</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #0d0d0d;
+            color: white;
+        }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 2px;
+            color: #66b3ff;
+        }
+
+        nav a {
+            margin-left: 20px;
+            color: #f2f2f2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at top, #1a1a1a, #000);
+        }
+
+        .hero h2 {
+            margin-top: 100px;
+            font-size: 48px;
+            max-width: 900px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            opacity: 0.8;
+        }
+
+        .btn-primary {
+            margin-top: 20px;
+            padding: 14px 32px;
+            background: #66b3ff;
+            color: black;
+            border-radius: 8px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #3399ff;
+        }
+
+        /* SECTION */
+        section {
+            padding: 90px 60px;
+        }
+
+        section h3 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* TOOL CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #66b3ff;
+        }
+
+        .card h4 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #66b3ff;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #000;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Bienvenido a IAtoolbox</h1>
-    <p>Tu caja de herramientas de inteligencia artificial gratuitas.</p>
+
+    <!-- NAV -->
+    <nav>
+        <h1>IAtoolbox</h1>
+        <div>
+            <a href="#inicio">Inicio</a>
+            <a href="#herramientas">Herramientas</a>
+            <a href="#acerca">Acerca</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero" id="inicio">
+        <h2>La mejor colección de herramientas de inteligencia artificial gratuitas</h2>
+        <p>Optimiza tu trabajo, mejora tu productividad y descubre las mejores soluciones IA sin gastar un solo peso.</p>
+        <a class="btn-primary" href="#herramientas">Explorar herramientas</a>
+    </div>
+
+    <!-- HERRAMIENTAS -->
+    <section id="herramientas">
+        <h3>Herramientas IA destacadas</h3>
+
+        <div class="cards">
+            <div class="card">
+                <h4>Generación de texto</h4>
+                <p>IA que crea textos, artículos, guiones, tareas y más.</p>
+            </div>
+
+            <div class="card">
+                <h4>Generación de imágenes</h4>
+                <p>Modelos para crear imágenes, logos, banners y arte digital.</p>
+            </div>
+
+            <div class="card">
+                <h4>Audio y voz IA</h4>
+                <p>Conversión de voz a texto, síntesis y narradores automáticos.</p>
+            </div>
+
+            <div class="card">
+                <h4>Productividad</h4>
+                <p>Organizadores automáticos, resúmenes, automatización y más.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACERCA -->
+    <section id="acerca">
+        <h3>¿Qué es IAtoolbox?</h3>
+        <p style="max-width: 800px; margin: auto; text-align: center; opacity: 0.8;">
+            IAtoolbox es un sitio dedicado a recopilar, analizar y recomendar las mejores herramientas de inteligencia artificial gratuitas.
+            Nuestro objetivo es ayudarte a trabajar más rápido, más inteligente y sin necesidad de invertir dinero.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 IAtoolbox</p>
+        <p>Creado con pasión por la tecnología</p>
+    </footer>
+
 </body>
 </html>
