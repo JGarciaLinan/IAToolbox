@@ -3,197 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAtoolbox – Herramientas de Inteligencia Artificial Gratuitas</title>
+    <title>IA Toolbox - Profesional</title>
+
+    <!-- Fuente profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* ====== ESTILOS GENERALES ====== */
         body {
             margin: 0;
-            font-family: "Segoe UI", sans-serif;
-            background: #0d0d0d;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #0d0d0f, #1a1a1d, #121214);
             color: white;
+            overflow-x: hidden;
         }
 
-        /* NAVBAR */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 60px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            z-index: 10;
-        }
-
-        nav h1 {
-            margin: 0;
-            font-size: 26px;
-            letter-spacing: 2px;
-            color: #66b3ff;
-        }
-
-        nav a {
-            margin-left: 20px;
-            color: #f2f2f2;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        header {
             text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at top, #1a1a1a, #000);
+            padding: 70px 20px 20px;
+            animation: fadeDown 1.2s ease-out;
         }
 
-        .hero h2 {
-            margin-top: 100px;
-            font-size: 48px;
-            max-width: 900px;
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
-        .hero p {
-            font-size: 18px;
-            max-width: 700px;
+        p.sub {
+            font-size: 1.2rem;
             opacity: 0.8;
+            margin-top: 0;
         }
 
-        .btn-primary {
-            margin-top: 20px;
-            padding: 14px 32px;
-            background: #66b3ff;
-            color: black;
-            border-radius: 8px;
-            font-size: 18px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: #3399ff;
-        }
-
-        /* SECTION */
-        section {
-            padding: 90px 60px;
-        }
-
-        section h3 {
-            font-size: 36px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        /* TOOL CARDS */
-        .cards {
+        /* ====== CONTENEDOR DE TARJETAS ====== */
+        .tools-container {
+            max-width: 1100px;
+            margin: 60px auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
+            gap: 30px;
+            padding: 0 20px;
         }
 
-        .card {
-            background: #1a1a1a;
-            padding: 30px;
+        /* ====== TARJETAS ====== */
+        .tool-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+            border-radius: 18px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeUp 1s ease forwards;
+            opacity: 0;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .tool-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            opacity: 0.85;
+            line-height: 1.4;
+        }
+
+        /* BOTÓN */
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
             border-radius: 12px;
-            transition: 0.3s;
-            border: 1px solid #333;
+            background: linear-gradient(135deg, #6a5acd, #8a7bff);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: 0.25s ease;
         }
 
-        .card:hover {
-            transform: translateY(-6px);
-            border-color: #66b3ff;
+        .btn:hover {
+            background: linear-gradient(135deg, #8a7bff, #6a5acd);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 18px rgba(138, 123, 255, 0.45);
         }
 
-        .card h4 {
-            margin: 0 0 10px 0;
-            font-size: 22px;
-            color: #66b3ff;
+        /* ====== ANIMACIONES ====== */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px;
-            background: #000;
-            border-top: 1px solid #222;
-            margin-top: 40px;
-            opacity: 0.8;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        footer p {
-            margin: 5px;
-        }
-
     </style>
 </head>
+
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <h1>IAtoolbox</h1>
-        <div>
-            <a href="#inicio">Inicio</a>
-            <a href="#herramientas">Herramientas</a>
-            <a href="#acerca">Acerca</a>
+    <header>
+        <h1>IA Toolbox</h1>
+        <p class="sub">Tu colección profesional de herramientas impulsadas por inteligencia artificial</p>
+    </header>
+
+    <section class="tools-container">
+
+        <div class="tool-card">
+            <h3>Corrector Inteligente</h3>
+            <p>Corrige textos, mejora la redacción y optimiza la claridad automáticamente.</p>
+            <a class="btn" href="#">Abrir herramienta</a>
         </div>
-    </nav>
 
-    <!-- HERO -->
-    <div class="hero" id="inicio">
-        <h2>La mejor colección de herramientas de inteligencia artificial gratuitas</h2>
-        <p>Optimiza tu trabajo, mejora tu productividad y descubre las mejores soluciones IA sin gastar un solo peso.</p>
-        <a class="btn-primary" href="#herramientas">Explorar herramientas</a>
-    </div>
-
-    <!-- HERRAMIENTAS -->
-    <section id="herramientas">
-        <h3>Herramientas IA destacadas</h3>
-
-        <div class="cards">
-            <div class="card">
-                <h4>Generación de texto</h4>
-                <p>IA que crea textos, artículos, guiones, tareas y más.</p>
-            </div>
-
-            <div class="card">
-                <h4>Generación de imágenes</h4>
-                <p>Modelos para crear imágenes, logos, banners y arte digital.</p>
-            </div>
-
-            <div class="card">
-                <h4>Audio y voz IA</h4>
-                <p>Conversión de voz a texto, síntesis y narradores automáticos.</p>
-            </div>
-
-            <div class="card">
-                <h4>Productividad</h4>
-                <p>Organizadores automáticos, resúmenes, automatización y más.</p>
-            </div>
+        <div class="tool-card">
+            <h3>Generador de Resúmenes</h3>
+            <p>Transforma textos largos en versiones claras, directas y bien estructuradas.</p>
+            <a class="btn" href="#">Abrir herramienta</a>
         </div>
-    </section>
 
-    <!-- ACERCA -->
-    <section id="acerca">
-        <h3>¿Qué es IAtoolbox?</h3>
-        <p style="max-width: 800px; margin: auto; text-align: center; opacity: 0.8;">
-            IAtoolbox es un sitio dedicado a recopilar, analizar y recomendar las mejores herramientas de inteligencia artificial gratuitas.
-            Nuestro objetivo es ayudarte a trabajar más rápido, más inteligente y sin necesidad de invertir dinero.
-        </p>
-    </section>
+        <div class="tool-card">
+            <h3>Explicador Simple</h3>
+            <p>Convierte conceptos complejos en explicaciones cortas, claras y fáciles de entender.</p>
+            <a class="btn" href="#">Abrir herramienta</a>
+        </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2025 IAtoolbox</p>
-        <p>Creado con pasión por la tecnología</p>
-    </footer>
+        <div class="tool-card">
+            <h3>Analizador de Contenido</h3>
+            <p>Extrae ideas clave, analiza sentimiento y clasifica información rápidamente.</p>
+            <a class="btn" href="#">Abrir herramienta</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>Generador Creativo</h3>
+            <p>Produce ideas, historias, slogans o conceptos únicos a partir de una frase.</p>
+            <a class="btn" href="#">Abrir herramienta</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>Transformador de Texto</h3>
+            <p>Convierte texto en listas, tablas, explicaciones técnicas o resúmenes.</p>
+            <a class="btn" href="#">Abrir herramienta</a>
+        </div>
+
+    </section>
 
 </body>
 </html>
