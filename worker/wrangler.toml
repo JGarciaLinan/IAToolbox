@@ -1,1 +1,6 @@
+name = "ia-toolbox-proxy"
+compatibility_date = "2025-12-26"
+main = "src/index.js"
 
+[vars]
+# Tu API key se pondrá en Cloudflare
