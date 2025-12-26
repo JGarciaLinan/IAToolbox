@@ -3,160 +3,1166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Toolbox - Profesional</title>
-
-    <!-- Fuente profesional -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    <title>IAtoolbox – Dashboard Profesional de Herramientas IA</title>
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
     <style>
-        /* ====== ESTILOS GENERALES ====== */
-        body {
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --glass: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(15, 23, 42, 0.9);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
             margin: 0;
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #0d0d0f, #1a1a1d, #121214);
-            color: white;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        header {
-            text-align: center;
-            padding: 70px 20px 20px;
-            animation: fadeDown 1.2s ease-out;
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
 
-        h1 {
-            font-size: 3rem;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Navbar Glassmorphism */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 5px;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        p.sub {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-top: 0;
+        .logo i {
+            font-size: 2rem;
         }
 
-        /* ====== CONTENEDOR DE TARJETAS ====== */
-        .tools-container {
-            max-width: 1100px;
-            margin: 60px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            padding: 0 20px;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
 
-        /* ====== TARJETAS ====== */
-        .tool-card {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(18px);
-            border-radius: 18px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            animation: fadeUp 1s ease forwards;
-            opacity: 0;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-        }
-
-        .tool-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .tool-card p {
-            opacity: 0.85;
-            line-height: 1.4;
-        }
-
-        /* BOTÓN */
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 20px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #6a5acd, #8a7bff);
-            color: white;
+        .nav-links a {
+            color: var(--light);
             text-decoration: none;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: 0.25s ease;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: var(--transition);
+            position: relative;
         }
 
-        .btn:hover {
-            background: linear-gradient(135deg, #8a7bff, #6a5acd);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 18px rgba(138, 123, 255, 0.45);
+        .nav-links a:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
         }
 
-        /* ====== ANIMACIONES ====== */
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeUp 1s ease-out;
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Tools Section */
+        .section {
+            padding: 5rem 5%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Search and Filters */
+        .tools-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            color: var(--light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Tool Cards Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .tool-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tool-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* Tool Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* Chat Bot */
+        .chat-bot {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1001;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            border: none;
+            transition: var(--transition);
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-window.active {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-header {
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: var(--light);
+        }
+
+        .chat-input button {
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .tools-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-window {
+                width: calc(100vw - 4rem);
+                right: -1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 0 1rem;
+                padding-top: 100px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .chat-window {
+                width: 100vw;
+                height: 70vh;
+                bottom: 70px;
+                right: 0;
+                border-radius: 1rem 1rem 0 0;
+            }
         }
     </style>
 </head>
-
 <body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
 
-    <header>
-        <h1>IA Toolbox</h1>
-        <p class="sub">Tu colección profesional de herramientas impulsadas por inteligencia artificial</p>
-    </header>
-
-    <section class="tools-container">
-
-        <div class="tool-card">
-            <h3>Corrector Inteligente</h3>
-            <p>Corrige textos, mejora la redacción y optimiza la claridad automáticamente.</p>
-            <a class="btn" href="#">Abrir herramienta</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <span>IAtoolbox</span>
         </div>
-
-        <div class="tool-card">
-            <h3>Generador de Resúmenes</h3>
-            <p>Transforma textos largos en versiones claras, directas y bien estructuradas.</p>
-            <a class="btn" href="#">Abrir herramienta</a>
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#herramientas">Herramientas</a>
+            <a href="#acerca">Acerca</a>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
+    </nav>
 
-        <div class="tool-card">
-            <h3>Explicador Simple</h3>
-            <p>Convierte conceptos complejos en explicaciones cortas, claras y fáciles de entender.</p>
-            <a class="btn" href="#">Abrir herramienta</a>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Potencia tu creatividad con herramientas de IA gratuitas</h1>
+            <p>Descubre más de 30 herramientas profesionales de inteligencia artificial para mejorar tu productividad, creatividad y eficiencia. Todo en un solo lugar, completamente gratuito.</p>
+            <div class="cta-buttons">
+                <a href="#herramientas" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Explorar Herramientas
+                </a>
+                <a href="#chat" class="btn btn-secondary">
+                    <i class="fas fa-comments"></i>
+                    Probar Asistente IA
+                </a>
+            </div>
         </div>
-
-        <div class="tool-card">
-            <h3>Analizador de Contenido</h3>
-            <p>Extrae ideas clave, analiza sentimiento y clasifica información rápidamente.</p>
-            <a class="btn" href="#">Abrir herramienta</a>
-        </div>
-
-        <div class="tool-card">
-            <h3>Generador Creativo</h3>
-            <p>Produce ideas, historias, slogans o conceptos únicos a partir de una frase.</p>
-            <a class="btn" href="#">Abrir herramienta</a>
-        </div>
-
-        <div class="tool-card">
-            <h3>Transformador de Texto</h3>
-            <p>Convierte texto en listas, tablas, explicaciones técnicas o resúmenes.</p>
-            <a class="btn" href="#">Abrir herramienta</a>
-        </div>
-
     </section>
 
+    <!-- Tools Section -->
+    <section class="section" id="herramientas">
+        <div class="section-header">
+            <h2>Herramientas de IA</h2>
+            <p>Selecciona entre nuestras herramientas especializadas</p>
+        </div>
+
+        <div class="tools-controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="toolSearch" placeholder="Buscar herramientas...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="text">Texto</button>
+                <button class="filter-btn" data-filter="image">Imágenes</button>
+                <button class="filter-btn" data-filter="code">Código</button>
+                <button class="filter-btn" data-filter="productivity">Productividad</button>
+            </div>
+        </div>
+
+        <div class="tools-grid" id="toolsContainer">
+            <!-- Tools will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="acerca">
+        <div class="section-header">
+            <h2>Sobre IAtoolbox</h2>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem;">
+                IAtoolbox es una plataforma profesional que reúne las mejores herramientas de inteligencia artificial en un solo lugar. 
+                Nuestro objetivo es democratizar el acceso a la IA, proporcionando herramientas gratuitas y de alta calidad para todos.
+            </p>
+            <div class="stats" style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem;">
+                <div class="stat">
+                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;">30+</h3>
+                    <p>Herramientas IA</p>
+                </div>
+                <div class="stat">
+                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;">100%</h3>
+                    <p>Gratuito</p>
+                </div>
+                <div class="stat">
+                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;">24/7</h3>
+                    <p>Disponible</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Modal -->
+    <div class="modal" id="toolModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cogs"></i> <span id="modalTitle">Herramienta IA</span></h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Tool content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Bot -->
+    <div class="chat-bot">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4><i class="fas fa-robot"></i> Asistente IA</h4>
+                <button class="close-modal" id="closeChat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    ¡Hola! Soy tu asistente de IA. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+                <button id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="chat-toggle" id="chatToggle">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 2rem; background: rgba(0, 0, 0, 0.5); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 4rem;">
+        <p>© 2025 IAtoolbox. Todos los derechos reservados.</p>
+        <p style="color: #94a3b8; margin-top: 0.5rem;">Potenciado por IA avanzada</p>
+    </footer>
+
+    <script>
+        // Tool Data
+        const tools = [
+            {
+                id: 1,
+                name: "Generador de Texto IA",
+                description: "Crea contenido, artículos, emails y textos creativos con IA avanzada.",
+                category: "text",
+                icon: "fas fa-font",
+                color: "#6366f1",
+                tags: ["Texto", "Escritura", "Creativo"]
+            },
+            {
+                id: 2,
+                name: "Generador de Imágenes",
+                description: "Crea imágenes únicas y sorprendentes con solo una descripción.",
+                category: "image",
+                icon: "fas fa-image",
+                color: "#10b981",
+                tags: ["Imágenes", "DALL-E", "Arte"]
+            },
+            {
+                id: 3,
+                name: "Corrector de Texto",
+                description: "Corrección gramatical y de estilo con sugerencias inteligentes.",
+                category: "text",
+                icon: "fas fa-spell-check",
+                color: "#f59e0b",
+                tags: ["Gramática", "Corrección", "Estilo"]
+            },
+            {
+                id: 4,
+                name: "Resumidor IA",
+                description: "Resume textos largos manteniendo los puntos clave y contexto.",
+                category: "productivity",
+                icon: "fas fa-file-contract",
+                color: "#8b5cf6",
+                tags: ["Resumen", "Análisis", "Productividad"]
+            },
+            {
+                id: 5,
+                name: "Generador de Código",
+                description: "Genera código en múltiples lenguajes a partir de descripciones.",
+                category: "code",
+                icon: "fas fa-code",
+                color: "#ef4444",
+                tags: ["Programación", "Desarrollo", "Código"]
+            },
+            {
+                id: 6,
+                name: "Explicador Simple",
+                description: "Explica conceptos complejos de manera sencilla y comprensible.",
+                category: "text",
+                icon: "fas fa-lightbulb",
+                color: "#3b82f6",
+                tags: ["Educación", "Explicación", "Aprendizaje"]
+            },
+            {
+                id: 7,
+                name: "Editor Markdown IA",
+                description: "Editor inteligente con sugerencias y formato automático.",
+                category: "productivity",
+                icon: "fas fa-edit",
+                color: "#ec4899",
+                tags: ["Markdown", "Editor", "Texto"]
+            },
+            {
+                id: 8,
+                name: "Analizador de Texto",
+                description: "Analiza sentimientos, tono y características de textos.",
+                category: "text",
+                icon: "fas fa-chart-bar",
+                color: "#06b6d4",
+                tags: ["Análisis", "Sentimiento", "Métricas"]
+            },
+            {
+                id: 9,
+                name: "Convertidor a PDF",
+                description: "Convierte documentos a PDF con diseño inteligente.",
+                category: "productivity",
+                icon: "fas fa-file-pdf",
+                color: "#f97316",
+                tags: ["PDF", "Conversión", "Documentos"]
+            },
+            {
+                id: 10,
+                name: "Asistente de Programación",
+                description: "Ayuda con debugging, optimización y mejores prácticas.",
+                category: "code",
+                icon: "fas fa-laptop-code",
+                color: "#22c55e",
+                tags: ["Debug", "Optimización", "Programación"]
+            }
+        ];
+
+        // DOM Elements
+        const loader = document.getElementById('loader');
+        const toolsContainer = document.getElementById('toolsContainer');
+        const toolSearch = document.getElementById('toolSearch');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const toolModal = document.getElementById('toolModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.getElementById('closeModal');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessage = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+        const sections = document.querySelectorAll('.section');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide loader after 1.5 seconds
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Generate tool cards
+            renderTools(tools);
+
+            // Setup event listeners
+            setupEventListeners();
+
+            // Setup scroll animations
+            setupScrollAnimations();
+        });
+
+        // Render Tools
+        function renderTools(toolsArray) {
+            toolsContainer.innerHTML = '';
+            toolsArray.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'tool-card';
+                toolCard.dataset.category = tool.category;
+                toolCard.dataset.id = tool.id;
+                
+                toolCard.innerHTML = `
+                    <div class="tool-icon" style="background: linear-gradient(135deg, ${tool.color}, ${tool.color}80)">
+                        <i class="${tool.icon}"></i>
+                    </div>
+                    <h3>${tool.name}</h3>
+                    <p>${tool.description}</p>
+                    <div class="tool-tags">
+                        ${tool.tags.map(tag => `<span class="tool-tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                
+                toolsContainer.appendChild(toolCard);
+            });
+
+            // Add click event to tool cards
+            document.querySelectorAll('.tool-card').forEach(card => {
+                card.addEventListener('click', () => openToolModal(parseInt(card.dataset.id)));
+            });
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Search functionality
+            toolSearch.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredTools = tools.filter(tool => 
+                    tool.name.toLowerCase().includes(searchTerm) ||
+                    tool.description.toLowerCase().includes(searchTerm) ||
+                    tool.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+                renderTools(filteredTools);
+            });
+
+            // Filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filter = button.dataset.filter;
+                    if (filter === 'all') {
+                        renderTools(tools);
+                    } else {
+                        const filteredTools = tools.filter(tool => tool.category === filter);
+                        renderTools(filteredTools);
+                    }
+                });
+            });
+
+            // Modal close
+            closeModal.addEventListener('click', () => {
+                toolModal.classList.remove('active');
+            });
+
+            // Chat toggle
+            chatToggle.addEventListener('click', () => {
+                chatWindow.classList.toggle('active');
+            });
+
+            closeChat.addEventListener('click', () => {
+                chatWindow.classList.remove('active');
+            });
+
+            // Send message
+            sendMessage.addEventListener('click', sendChatMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendChatMessage();
+            });
+
+            // Close modal on outside click
+            toolModal.addEventListener('click', (e) => {
+                if (e.target === toolModal) {
+                    toolModal.classList.remove('active');
+                }
+            });
+        }
+
+        // Open Tool Modal
+        function openToolModal(toolId) {
+            const tool = tools.find(t => t.id === toolId);
+            if (!tool) return;
+
+            modalTitle.textContent = tool.name;
+            modalBody.innerHTML = `
+                <div style="margin-bottom: 2rem;">
+                    <div class="tool-icon" style="margin: 0 auto 1rem; background: linear-gradient(135deg, ${tool.color}, ${tool.color}80)">
+                        <i class="${tool.icon}"></i>
+                    </div>
+                    <h3 style="text-align: center; margin-bottom: 1rem;">${tool.name}</h3>
+                    <p style="text-align: center; color: #94a3b8;">${tool.description}</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--primary);">
+                        <i class="fas fa-info-circle"></i> Información
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;">
+                            <div style="color: #94a3b8; font-size: 0.9rem;">Categoría</div>
+                            <div style="font-weight: 500;">${getCategoryName(tool.category)}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem;">
+                            <div style="color: #94a3b8; font-size: 0.9rem;">Estado</div>
+                            <div style="font-weight: 500; color: #10b981;">Disponible</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="margin-bottom: 1rem; color: var(--primary);">
+                        <i class="fas fa-cogs"></i> Funcionalidades
+                    </h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
+                            Procesamiento inteligente
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
+                            Resultados en tiempo real
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
+                            Interfaz intuitiva
+                        </li>
+                        <li style="padding: 0.5rem 0;">
+                            <i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i>
+                            Compatibilidad total
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="launchTool(${toolId})">
+                        <i class="fas fa-play"></i> Usar Herramienta
+                    </button>
+                </div>
+            `;
+
+            toolModal.classList.add('active');
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                text: 'Texto',
+                image: 'Imágenes',
+                code: 'Código',
+                productivity: 'Productividad'
+            };
+            return categories[category] || category;
+        }
+
+        // Launch Tool (placeholder)
+        function launchTool(toolId) {
+            alert(`Iniciando herramienta ${toolId}. Esta funcionalidad se integrará con las APIs específicas.`);
+            // Aquí iría la integración con la API correspondiente
+        }
+
+        // Chat Functions
+        function sendChatMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            chatInput.value = '';
+
+            // Simulate AI response (reemplazar con API real)
+            setTimeout(() => {
+                const responses = [
+                    "Interesante pregunta. ¿Podrías darme más detalles?",
+                    "Basándome en mi conocimiento, te recomendaría revisar las herramientas de texto IA disponibles.",
+                    "Para eso, puedes usar nuestro generador de imágenes IA. Solo describe lo que necesitas.",
+                    "Excelente pregunta. La IA puede ayudarte con eso utilizando nuestro resumidor automático.",
+                    "Para programación, nuestro generador de código puede asistirte. ¿Qué lenguaje prefieres?"
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(response, 'bot');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Scroll Animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Theme Toggle (placeholder)
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const icon = document.querySelector('#themeToggle i');
+            if (icon.classList.contains('fa-moon')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                document.body.style.filter = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
